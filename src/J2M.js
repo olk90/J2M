@@ -71,6 +71,10 @@
 		input = input.replace(/{noformat}/g, '```');
 		input = input.replace(/{color:([^}]+)}([^]*?){color}/gm, '<span style="color:$1">$2</span>');
 
+		// check lists
+		input = input.replace(/\* \(\/\)/g, '- [x]');
+		input = input.replace(/\* \(\?\)/g, '- [ ]');
+
 		// Convert header rows of tables by splitting input on lines
 		lines = input.split(/\r?\n/gm);
 		lines_to_remove = []
@@ -197,6 +201,10 @@
 		
 		input = input.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '[$1|$2]');
 		input = input.replace(/<([^>]+)>/g, '[$1]');
+
+		// check lists
+		input = input.replace(/- \[x\]/g, '* (/)');
+		input = input.replace(/- \[ \]/g, '* (?)');
 
 		// restore extracted sections
 		for(var i =0; i < replacementsList.length; i++){
